@@ -1,3 +1,4 @@
+
 name: Build Perfect Root Kernel
 on:
   workflow_dispatch:
@@ -7,22 +8,21 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Build Kernel
-        # Switching to a specific stable version to avoid @main bugs
-        uses: dabao1955/kernel_build_action@v1.1
+        # Switching to the latest main branch which should have the fix
+        uses: dabao1955/kernel_build_action@main
         with:
           kernel-url: https://android.googlesource.com/kernel/common
-          # Using the most reliable GKI branch name
           kernel-branch: android15-6.6
           config: gki_defconfig
           arch: arm64
           android-version: 15
           
-          # Simplified KSU-Next setup
+          # Use the built-in ksun-next toggle
           ksu: true
           ksu-next: true
           
           # SUSFS Integration
           rekernel: true 
           
-          # Flashable package
+          # Modern artifact uploader compatibility
           anykernel3: true 
